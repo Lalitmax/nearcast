@@ -1,0 +1,9 @@
+# Git files
+.git
+.gitignore
+
+# Maven build output
+target/
+
+# Environment/config files
+.env

@@ -41,7 +41,7 @@ export default function MediaUpload({ media, setMedia, error }) {
             </div>
           </div>
           <input type="file" multiple accept="image/*,video/*" onChange={handleFileChange} className="hidden" />
-          <p>
+          <p className="text-text dark:text-text-dark font-semibold">
             Drag files here or click to browse
           </p>
         </label>

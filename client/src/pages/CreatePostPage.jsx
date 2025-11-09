@@ -88,7 +88,7 @@ export default function CreatePostPage({ user, setCurrentPage }) {
                   if (errors.title) setErrors((prev) => ({ ...prev, title: "" }))
                 }}
                 maxLength="100"
-                className="w-full px-4 py-3 border-2 border-border dark:border-border-dark bg-white dark:bg-secondary-dark text-text dark:text-text-dark rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none transition-all duration-200 text-lg"
+                className="w-full px-4 py-3 border-2 border-border dark:border-border-dark bg-white dark:bg-secondary-dark text-text dark:text-text-dark rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none transition-all duration-200 text-lg placeholder:text-text-lighter dark:placeholder:text-text-lighter-dark"
                 placeholder="What's happening in your neighborhood?"
               />
               <div className="flex justify-between items-center mt-2">
@@ -116,7 +116,7 @@ export default function CreatePostPage({ user, setCurrentPage }) {
                 }}
                 rows="3"
                 maxLength="100"
-                className="w-full px-4 py-3 border-2 border-border dark:border-border-dark bg-white dark:bg-secondary-dark text-text dark:text-text-dark rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none resize-none transition-all duration-200"
+                className="w-full px-4 py-3 border-2 border-border dark:border-border-dark bg-white dark:bg-secondary-dark text-text dark:text-text-dark rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none resize-none transition-all duration-200 placeholder:text-text-lighter dark:placeholder:text-text-lighter-dark"
                 placeholder="Provide more details..."
               />
               <div className="flex justify-between items-center mt-2">
