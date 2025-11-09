@@ -20,7 +20,7 @@ services:
   backend:
     build:
       context: ./server
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: nearcast-backend
     restart: always
     environment:
@@ -37,7 +37,7 @@ services:
   frontend:
     build:
       context: ./client
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     container_name: nearcast-frontend
     restart: always
     environment:
