@@ -8,7 +8,7 @@ IF "%ACTION%"=="" (
 
 IF /I "%ACTION%"=="up" (
     echo Starting Spring Boot app with Docker Compose...
-    docker compose -f docker-compose-dev.yml --env-file .env up --build
+    docker compose -f docker-compose-dev.yml up --build
     exit /b
 )
 

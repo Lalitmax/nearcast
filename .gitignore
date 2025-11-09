@@ -3,3 +3,7 @@
 .env.local
 .env.development
 .env.production
+
+# Uploaded files
+server/src/uploads/
+server/uploads/

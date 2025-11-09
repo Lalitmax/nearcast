@@ -1,8 +1,26 @@
 "use client"
 
 import { Upload, X, AlertCircle, Image, Video } from "lucide-react"
+import axios from "axios"
 
 export default function MediaUpload({ media, setMedia, error }) {
+
+
+  const uploadFile = async (file) => {
+    const formData = new FormData()
+    formData.append("file", file)
+    try {
+      const response = await axios.post("http://localhost:8080/api/file/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      console.log(response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files)
     const validFiles = files.filter((file) => {
@@ -11,8 +29,12 @@ export default function MediaUpload({ media, setMedia, error }) {
       const isUnder50MB = file.size < 50 * 1024 * 1024
       return (isImage || isVideo) && isUnder50MB
     })
-
-    setMedia([...media, ...validFiles])
+    
+    validFiles.forEach((file) => {
+      uploadFile(file)
+    })
+  
+    // setMedia([...media, ...validFiles])
   }
 
   const removeMedia = (index) => {
