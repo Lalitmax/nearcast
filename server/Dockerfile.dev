@@ -1,0 +1,21 @@
+FROM eclipse-temurin:17.0.12_7-jdk-jammy
+WORKDIR /app
+
+# Copy Maven wrapper files first (important for cache)
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
+
+# Make the wrapper executable
+RUN chmod +x mvnw
+
+# Download dependencies (cached layer)
+RUN ./mvnw dependency:go-offline -B
+
+# Copy the rest of the project files
+COPY . .
+
+# Expose Spring Boot default port
+EXPOSE 8080
+
+# Run the app using Maven Wrapper
+CMD ["./mvnw", "spring-boot:run"]

@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.4.0
+    container_name: nearcast-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - nearcast-network
+
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: nearcast-backend
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/nearcast_db
+      SPRING_DATASOURCE_USERNAME: nearcast_user
+      SPRING_DATASOURCE_PASSWORD: near123
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - nearcast-network
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: nearcast-frontend
+    restart: always
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - nearcast-network
+
+volumes:
+  mysql_data:
+
+networks:
+  nearcast-network:
+    driver: bridge
