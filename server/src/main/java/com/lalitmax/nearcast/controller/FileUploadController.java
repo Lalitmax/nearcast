@@ -1,65 +1,45 @@
 package com.lalitmax.nearcast.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
+import io.imagekit.sdk.ImageKit;
+import io.imagekit.sdk.models.FileCreateRequest;
+import io.imagekit.sdk.models.results.Result;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/file")
 public class FileUploadController {
+    // File upload controller for imagekit
 
-    @Value("${file.upload-dir:uploads}")
-    private String uploadDir;
+    @Autowired
+    private ImageKit imageKit;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-
-        // Validate file
-        if (file.isEmpty()) {
-            return ResponseEntity.badRequest().body("Please select a file to upload");
-        }
-
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
-            // Create upload directory if it doesn't exist
-            Path uploadPath = Paths.get(uploadDir);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            // Generate unique filename to avoid conflicts
+            byte[] bytes = file.getBytes();
             String originalFilename = file.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFilename != null && originalFilename.contains(".")) {
-                fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            }
-            String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
 
-            // Save file
-            Path filePath = uploadPath.resolve(uniqueFilename);
-            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            FileCreateRequest request = new FileCreateRequest(bytes, originalFilename);
+            request.setUseUniqueFileName(true);
+            request.setPrivateFile(false); // if you want public
 
-            System.out.println("File uploaded successfully: " + filePath.toAbsolutePath());
+            Result result = imageKit.upload(request);
 
-            // Return the file path or URL
-            return ResponseEntity.ok("File uploaded successfully: " + uniqueFilename);
+            // Get public URL of the file
+            String publicUrl = result.getUrl();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to upload file: " + e.getMessage());
+            return ResponseEntity.ok(publicUrl);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of(
+                "error", "Upload failed",
+                "message", e.getMessage()
+            ));
         }
     }
-
 }
