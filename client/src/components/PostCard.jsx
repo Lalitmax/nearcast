@@ -18,7 +18,7 @@ export default function PostCard({ post, isLiked, onToggleLike }) {
               <span className="text-text-lighter dark:text-text-lighter-dark">•</span>
               <div className="flex items-center gap-1.5 px-2 py-1 bg-primary/10 dark:bg-primary/20 rounded-lg">
                 <MapPin className="h-3.5 w-3.5 text-primary" />
-                <span className="font-medium text-primary">{post.zipcode}</span>
+                <span className="font-medium text-primary">{post.pincode}</span>
               </div>
               <span className="text-text-lighter dark:text-text-lighter-dark">•</span>
               <span className="text-text-lighter dark:text-text-lighter-dark">

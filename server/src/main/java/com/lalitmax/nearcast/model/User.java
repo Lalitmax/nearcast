@@ -13,5 +13,5 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private String zipcode; // User's current location
+    private String pincode; // User's current location
 }

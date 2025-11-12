@@ -43,14 +43,14 @@ public class UserRepository{
             "name VARCHAR(255) NOT NULL, " +
             "email VARCHAR(255) NOT NULL UNIQUE, " +
             "password VARCHAR(255) NOT NULL, " +
-            "zipcode VARCHAR(20) NOT NULL, " +
+            "pincode VARCHAR(20) NOT NULL, " +
             "created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP" +
             ")"
         );
 
         // Insert the user data
-        jdbcTemplate.update("INSERT INTO users (name, email, password, zipcode) VALUES (?, ?, ?, ?)",
-                user.getName(), user.getEmail(), user.getPassword(), user.getZipcode());
+        jdbcTemplate.update("INSERT INTO users (name, email, password, pincode) VALUES (?, ?, ?, ?)",
+                user.getName(), user.getEmail(), user.getPassword(), user.getPincode());
         return user;
     }
 

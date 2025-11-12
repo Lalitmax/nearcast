@@ -21,7 +21,7 @@ public class AuthService  {
             user.setName(req.getName());
             user.setEmail(req.getEmail());
             user.setPassword(req.getPassword());
-            user.setZipcode(req.getZipcode());
+            user.setPincode(req.getPincode());
             userRepository.save(user);
             return "User registered successfully!";
     }

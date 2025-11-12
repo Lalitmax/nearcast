@@ -39,7 +39,7 @@ export default function CreatePostPage({ user, setCurrentPage }) {
         userId: user.id,
         userName: user.name,
         userEmail: user.email,
-        zipcode: user.zipcode,
+        pincode: user.pincode,
         address: user.address,
         title: formData.title,
         description: formData.description,

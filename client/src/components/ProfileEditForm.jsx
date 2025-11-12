@@ -6,7 +6,7 @@ import { MapPin, Home, AlertCircle, CheckCircle, User } from "lucide-react"
 export default function ProfileEditForm({ user, setUser, onCancel }) {
   const [formData, setFormData] = useState({
     name: user.name,
-    zipcode: user.zipcode,
+    pincode: user.pincode,
     address: user.address,
   })
   const [errors, setErrors] = useState({})
@@ -16,7 +16,7 @@ export default function ProfileEditForm({ user, setUser, onCancel }) {
     const newErrors = {}
 
     if (!formData.name.trim()) newErrors.name = "Name is required"
-    if (!/^\d{5}$/.test(formData.zipcode)) newErrors.zipcode = "Valid 5-digit zipcode required"
+    if (!/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Valid 6-digit pincode required"
     if (!formData.address.trim()) newErrors.address = "Address is required"
 
     setErrors(newErrors)
@@ -89,23 +89,23 @@ export default function ProfileEditForm({ user, setUser, onCancel }) {
         <div>
           <label className="block text-sm font-semibold text-text-light dark:text-text-light-dark mb-2 flex items-center gap-2">
             <MapPin className="h-4 w-4" />
-            Zipcode
+            Pincode
           </label>
           <div className="relative">
             <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-text-lighter dark:text-text-lighter-dark h-5 w-5" />
             <input
               type="text"
-              name="zipcode"
-              value={formData.zipcode}
+              name="pincode"
+              value={formData.pincode}
               onChange={handleChange}
-              maxLength="5"
+              maxLength="6"
               className="w-full pl-12 pr-4 py-3 border-2 border-border dark:border-border-dark bg-white dark:bg-secondary-dark text-text dark:text-text-dark rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none transition-all duration-200"
             />
           </div>
-          {errors.zipcode && (
+          {errors.pincode && (
             <p className="text-error text-sm mt-2 flex items-center gap-1 font-medium">
               <AlertCircle className="h-4 w-4" />
-              {errors.zipcode}
+              {errors.pincode}
             </p>
           )}
         </div>

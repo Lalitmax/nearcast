@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Mail, Lock, User, MapPin, Home } from "lucide-react"
+import { Mail, Lock, User, MapPin } from "lucide-react"
 
 export default function SignUpForm({ setUser, setCurrentPage }) {
   const [formData, setFormData] = useState({
@@ -9,8 +9,7 @@ export default function SignUpForm({ setUser, setCurrentPage }) {
     email: "",
     password: "",
     confirmPassword: "",
-    zipcode: "",
-    address: "",
+    pincode: "",
   })
   const [errors, setErrors] = useState({})
   const [isLoading, setIsLoading] = useState(false)
@@ -22,8 +21,7 @@ export default function SignUpForm({ setUser, setCurrentPage }) {
     if (!formData.email.includes("@")) newErrors.email = "Valid email is required"
     if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters"
     if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match"
-    if (!/^\d{5}$/.test(formData.zipcode)) newErrors.zipcode = "Valid 5-digit zipcode required"
-    if (!formData.address.trim()) newErrors.address = "Address is required"
+    if (!/^\d{6}$/.test(formData.pincode)) newErrors.pincode = "Valid 6-digit pincode required"
 
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -41,8 +39,7 @@ export default function SignUpForm({ setUser, setCurrentPage }) {
         id: Date.now(),
         name: formData.name,
         email: formData.email,
-        zipcode: formData.zipcode,
-        address: formData.address,
+        pincode: formData.pincode,
         createdAt: new Date().toISOString(),
       }
 
@@ -104,39 +101,21 @@ export default function SignUpForm({ setUser, setCurrentPage }) {
         {errors.email && <p className="text-error text-sm mt-2 font-medium">{errors.email}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
-            <MapPin className="h-4 w-4" />
-            Zipcode
-          </label>
-          <input
-            type="text"
-            name="zipcode"
-            value={formData.zipcode}
-            onChange={handleChange}
-            className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200"
-            placeholder="12345"
-            maxLength="5"
-          />
-          {errors.zipcode && <p className="text-error text-sm mt-2 font-medium">{errors.zipcode}</p>}
-        </div>
-
-        <div>
-          <label className="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
-            <Home className="h-4 w-4" />
-            Address
-          </label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200"
-            placeholder="123 Main St"
-          />
-          {errors.address && <p className="text-error text-sm mt-2 font-medium">{errors.address}</p>}
-        </div>
+      <div>
+        <label className="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
+          <MapPin className="h-4 w-4" />
+          Pincode
+        </label>
+        <input
+          type="text"
+          name="pincode"
+          value={formData.pincode}
+          onChange={handleChange}
+          className="w-full px-4 py-3 bg-white/5 border-2 border-white/10 rounded-xl text-white placeholder-slate-500 focus:border-primary focus:ring-4 focus:ring-primary/20 focus:outline-none transition-all duration-200"
+          placeholder="123456"
+          maxLength="6"
+        />
+        {errors.pincode && <p className="text-error text-sm mt-2 font-medium">{errors.pincode}</p>}
       </div>
 
       <div>

@@ -13,7 +13,7 @@ public class UserRowMapper implements RowMapper<User> {
         user.setName(rs.getString("name"));
         user.setEmail(rs.getString("email"));
         user.setPassword(rs.getString("password"));
-        user.setZipcode(rs.getString("zipcode"));
+        user.setPincode(rs.getString("pincode"));
         return user;
     }
 }

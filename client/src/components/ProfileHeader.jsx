@@ -45,9 +45,9 @@ export default function ProfileHeader({ user, isEditing, onEditClick }) {
               </div>
               <div>
                 <p className="text-xs font-semibold text-text-lighter dark:text-text-lighter-dark uppercase tracking-wide">
-                  Zipcode
+                  Pincode
                 </p>
-                <p className="text-base font-bold text-text dark:text-text-dark">{user.zipcode}</p>
+                <p className="text-base font-bold text-text dark:text-text-dark">{user.pincode}</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-accent/5 to-primary/5 dark:from-accent/10 dark:to-primary/10 rounded-xl border border-accent/20">

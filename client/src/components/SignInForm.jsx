@@ -33,7 +33,7 @@ export default function SignInForm({ setUser, setCurrentPage }) {
         id: Date.now(),
         name: formData.email.split("@")[0],
         email: formData.email,
-        zipcode: "12345",
+        pincode: "123456",
         address: "123 Main St",
         createdAt: new Date().toISOString(),
       }
